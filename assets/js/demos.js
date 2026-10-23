@@ -71,6 +71,14 @@
     });
   }
 
+  const nativeForm = $('#native-form');
+  if (nativeForm) {
+    nativeForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      $('#native-form-success').textContent = 'Dziękujemy! Formularz został wysłany.';
+    });
+  }
+
   /* ---------- Fałszywy przycisk vs prawdziwy ---------- */
   $$('[data-demo-click]').forEach((el) => {
     el.addEventListener('click', () => {

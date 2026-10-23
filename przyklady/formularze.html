@@ -114,6 +114,67 @@
         </ul>
       </div>
     </section>
+
+    <section class="example" aria-labelledby="ex-native">
+      <h2 id="ex-native">Walidacja natywna przeglądarki – kompromis</h2>
+      <p class="meta">Kryteria: 3.3.1, 3.3.3</p>
+      <p>Ten sam formularz <strong>bez</strong> atrybutu <code>novalidate</code>. Błędy zgłasza sama przeglądarka. To rozwiązanie nie jest złe, bo formalnie może spełnić kryterium 3.3.1, ale ma ograniczenia.</p>
+
+      <div class="demo">
+        <p class="demo-label">≈ Natywnie: działa, ale z ograniczeniami</p>
+        <form id="native-form">
+          <div class="field">
+            <label for="n-name">Imię (wymagane)</label>
+            <input id="n-name" name="n-name" type="text" autocomplete="given-name" required>
+          </div>
+          <div class="field">
+            <label for="n-email">E-mail (wymagane)</label>
+            <input id="n-email" name="n-email" type="email" autocomplete="email" required>
+          </div>
+          <fieldset>
+            <legend>Preferowany kontakt (wymagane)</legend>
+            <div><input type="radio" id="n-contact-email" name="n-contact" value="email" required> <label for="n-contact-email">E-mail</label></div>
+            <div><input type="radio" id="n-contact-tel" name="n-contact" value="tel"> <label for="n-contact-tel">Telefon</label></div>
+          </fieldset>
+          <button type="submit">Wyślij</button>
+          <p id="native-form-success" role="status"></p>
+        </form>
+      </div>
+
+<pre><code>&lt;form&gt;  &lt;!-- bez novalidate --&gt;
+  &lt;label for="n-email"&gt;E-mail (wymagane)&lt;/label&gt;
+  &lt;input id="n-email" type="email" autocomplete="email" required&gt;
+  …
+&lt;/form&gt;
+
+/* Opcjonalnie: wyróżnij błąd dopiero po interakcji użytkownika */
+input:user-invalid { border-color: #b3261e; }</code></pre>
+
+      <table>
+        <caption>Walidacja natywna a własna</caption>
+        <thead><tr><th scope="col">Cecha</th><th scope="col">Natywna</th><th scope="col">Własna (<code>novalidate</code>)</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Nakład pracy</th><td>✓ Zero JS</td><td>✗ Wymaga kodu i testów</td></tr>
+          <tr><th scope="row">Fokus na błędnym polu</th><td>✓ Automatycznie</td><td>✓ Do zaimplementowania</td></tr>
+          <tr><th scope="row">Trwałość komunikatu</th><td>✗ Dymek znika po chwili</td><td>✓ Tekst zostaje przy polu</td></tr>
+          <tr><th scope="row">Liczba błędów naraz</th><td>✗ Tylko pierwszy</td><td>✓ Wszystkie i podsumowanie</td></tr>
+          <tr><th scope="row">Treść komunikatu</th><td>✗ Ogólna, zależna od przeglądarki</td><td>✓ Konkretna podpowiedź (3.3.3)</td></tr>
+          <tr><th scope="row">Wygląd, kontrast i powiększenie</th><td>✗ Poza kontrolą autora</td><td>✓ Pełna kontrola</td></tr>
+          <tr><th scope="row">Spójność między przeglądarkami</th><td>✗ Różna</td><td>✓ Jednakowa</td></tr>
+        </tbody>
+      </table>
+
+      <div class="how-to-test">
+        <h3>Jak przetestować</h3>
+        <ul>
+          <li>Wyślij pusty formularz. Przeglądarka przeniesie fokus na pierwsze pole i pokaże dymek, który po chwili zniknie.</li>
+          <li>Popraw pierwsze pole i wyślij ponownie. Dopiero wtedy dowiesz się o kolejnym błędzie.</li>
+          <li>Porównaj komunikaty w Chrome, Firefoksie i Safari, a potem z czytnikiem ekranu.</li>
+          <li>Powiększ stronę do 400%. Dymek może wyjść poza ekran.</li>
+        </ul>
+        <p>Natywna walidacja jest rozsądnym minimum w prostych formularzach. W długich i ważnych formularzach (rejestracja, zamówienie, wnioski) lepiej użyć własnej walidacji, tak jak robi to m.in. <a href="https://design-system.service.gov.uk/components/error-message/" lang="en">GOV.UK Design System</a>.</p>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">

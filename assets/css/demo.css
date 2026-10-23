@@ -50,6 +50,7 @@ summary { cursor: pointer; min-height: 44px; display: flex; align-items: center;
 .field-error { color: var(--bad); font-weight: 600; }
 .field-hint { color: var(--muted); font-size: 0.9rem; }
 [aria-invalid="true"] { border-color: var(--bad); }
+#native-form :user-invalid { border-color: var(--bad); }
 fieldset { border: 1px solid var(--border); border-radius: var(--radius); margin: 0 0 1rem; }
 .error-summary { border: 2px solid var(--bad); padding: 0.75rem 1rem; border-radius: var(--radius); margin-bottom: 1rem; }
 
