@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WCAG 2.2 w praktyce – Strona główna</title>
+  <meta name="description" content="Praktyczny przewodnik po standardzie WCAG 2.2 z żywymi przykładami.">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Przejdź do treści</a>
+  <header class="site-header">
+    <div class="inner">
+      <a class="logo" href="index.html">WCAG 2.2 w praktyce</a>
+      <nav class="site-nav" aria-label="Główna">
+        <ul>
+          <li><a href="index.html" aria-current="page">Start</a></li>
+          <li><a href="teoria.html">Teoria</a></li>
+          <li><a href="przyklady/index.html">Przykłady</a></li>
+          <li><a href="checklista.html">Checklista</a></li>
+          <li><a href="narzedzia.html">Narzędzia</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <h1>WCAG 2.2 w praktyce</h1>
+    <p class="lead">Dostępność cyfrowa bez teorii oderwanej od kodu. Poznaj najważniejsze wymagania standardu WCAG 2.2 i sprawdź je na żywych przykładach. Przy każdym wymaganiu zobaczysz rozwiązanie złe i poprawne.</p>
+
+    <h2>Czym jest WCAG?</h2>
+    <p><abbr title="Web Content Accessibility Guidelines">WCAG</abbr> (Wytyczne dotyczące dostępności treści internetowych) to standard W3C opisujący, jak tworzyć treści dostępne dla osób z niepełnosprawnościami: niewidomych i słabowidzących, głuchych, z ograniczeniami ruchowymi czy poznawczymi. Wersja 2.2 została opublikowana 5 października 2023 r. Dodaje 9 nowych kryteriów i usuwa kryterium 4.1.1 (Parsowanie).</p>
+    <p>W Unii Europejskiej poziom <strong>AA</strong> jest wymagany m.in. przez normę EN 301 549 i Europejski Akt o Dostępności (EAA), obowiązujący od 28 czerwca 2025 r.</p>
+
+    <h2>Cztery zasady – POUR</h2>
+    <ul class="cards">
+      <li class="card">
+        <h3>Postrzegalność</h3>
+        <p>Informacje muszą być przedstawione tak, by użytkownik mógł je odebrać, np. tekst alternatywny, napisy, odpowiedni kontrast.</p>
+      </li>
+      <li class="card">
+        <h3>Funkcjonalność</h3>
+        <p>Interfejs musi dać się obsłużyć, np. z klawiatury, bez limitu czasu i bez precyzyjnych gestów.</p>
+      </li>
+      <li class="card">
+        <h3>Zrozumiałość</h3>
+        <p>Treść i działanie interfejsu muszą być zrozumiałe, czyli przewidywalne, z jasnymi komunikatami błędów.</p>
+      </li>
+      <li class="card">
+        <h3>Solidność</h3>
+        <p>Treść musi działać z różnymi technologiami, w tym asystującymi, takimi jak czytniki ekranu.</p>
+      </li>
+    </ul>
+
+    <h2>Poziomy zgodności</h2>
+    <table>
+      <caption class="visually-hidden">Poziomy zgodności WCAG</caption>
+      <thead>
+        <tr><th scope="col">Poziom</th><th scope="col">Znaczenie</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">A</th><td>Minimum. Bez spełnienia tych kryteriów część osób w ogóle nie skorzysta z treści.</td></tr>
+        <tr><th scope="row">AA</th><td>Standard wymagany prawnie w większości krajów. Obejmuje wszystkie kryteria A.</td></tr>
+        <tr><th scope="row">AAA</th><td>Najwyższy poziom. Zalecany tam, gdzie to możliwe, ale nie wymagany dla całych serwisów.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Od czego zacząć?</h2>
+    <ul class="cards">
+      <li class="card">
+        <h3><a href="teoria.html">Teoria</a></h3>
+        <p>14 kluczowych konceptów, uporządkowanych od najczęściej łamanych do rzadziej spotykanych.</p>
+      </li>
+      <li class="card">
+        <h3><a href="przyklady/index.html">Przykłady</a></h3>
+        <p>Żywe demonstracje: formularze, klawiatura, komponenty, media, kolory i nowości WCAG 2.2.</p>
+      </li>
+      <li class="card">
+        <h3><a href="checklista.html">Checklista</a></h3>
+        <p>Lista kontrolna do samodzielnego audytu. Postęp zapisuje się w przeglądarce.</p>
+      </li>
+      <li class="card">
+        <h3><a href="narzedzia.html">Narzędzia</a></h3>
+        <p>Automatyczne testery, czytniki ekranu i narzędzia do badania kontrastu.</p>
+      </li>
+    </ul>
+  </main>
+
+  <footer class="site-footer">
+    <p>WCAG 2.2 w praktyce · materiał edukacyjny · źródło: <a href="https://www.w3.org/TR/WCAG22/" lang="en">W3C WCAG 2.2</a></p>
+  </footer>
+</body>
+</html>

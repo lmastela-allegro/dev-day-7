@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Formularze – Przykłady – WCAG 2.2 w praktyce</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/demo.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Przejdź do treści</a>
+  <header class="site-header">
+    <div class="inner">
+      <a class="logo" href="../index.html">WCAG 2.2 w praktyce</a>
+      <nav class="site-nav" aria-label="Główna">
+        <ul>
+          <li><a href="../index.html">Start</a></li>
+          <li><a href="../teoria.html">Teoria</a></li>
+          <li><a href="index.html" aria-current="page">Przykłady</a></li>
+          <li><a href="../checklista.html">Checklista</a></li>
+          <li><a href="../narzedzia.html">Narzędzia</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <p><a href="index.html">← Wszystkie przykłady</a></p>
+    <h1>Formularze</h1>
+    <p class="lead">Formularze to miejsce, w którym niedostępność najczęściej uniemożliwia załatwienie sprawy, np. rejestrację, zakup czy kontakt.</p>
+
+    <section class="example" aria-labelledby="ex1">
+      <h2 id="ex1">Formularz kontaktowy</h2>
+      <p class="meta">Kryteria: 1.3.1, 1.3.5, 3.3.1, 3.3.2, 3.3.3, 4.1.2</p>
+
+      <div class="demo-pair">
+        <div class="demo demo--bad">
+          <p class="skip-demo"><a href="#good-form">Pomiń zły przykład</a></p>
+          <p class="demo-label">✗ Źle</p>
+          <div id="bad-form">
+            <p><input type="text" placeholder="Imię"></p>
+            <p><input type="text" placeholder="E-mail"></p>
+            <p>Preferowany kontakt:</p>
+            <p><input type="radio" name="b-contact"> E-mail <input type="radio" name="b-contact"> Telefon</p>
+            <div id="bad-form-submit" class="fake-btn">Wyślij</div>
+          </div>
+        </div>
+
+        <div class="demo demo--good">
+          <p class="demo-label">✓ Dobrze</p>
+          <form id="good-form" novalidate>
+            <div id="good-form-summary" class="error-summary" tabindex="-1" hidden>
+              <h3>Formularz zawiera błędy</h3>
+              <ul></ul>
+            </div>
+
+            <div class="field">
+              <label for="g-name">Imię <span aria-hidden="true">*</span><span class="visually-hidden">(wymagane)</span></label>
+              <input id="g-name" name="g-name" type="text" autocomplete="given-name" required aria-describedby="g-name-error">
+              <span id="g-name-error" class="field-error"></span>
+            </div>
+
+            <div class="field">
+              <label for="g-email">E-mail <span aria-hidden="true">*</span><span class="visually-hidden">(wymagane)</span></label>
+              <span id="g-email-hint" class="field-hint">Np. jan.kowalski@example.com</span>
+              <input id="g-email" name="g-email" type="email" autocomplete="email" required aria-describedby="g-email-hint g-email-error">
+              <span id="g-email-error" class="field-error"></span>
+            </div>
+
+            <fieldset aria-describedby="g-contact-error">
+              <legend>Preferowany kontakt <span aria-hidden="true">*</span><span class="visually-hidden">(wymagane)</span></legend>
+              <div><input type="radio" id="g-contact-email" name="g-contact" value="email"> <label for="g-contact-email">E-mail</label></div>
+              <div><input type="radio" id="g-contact-tel" name="g-contact" value="tel"> <label for="g-contact-tel">Telefon</label></div>
+              <span id="g-contact-error" class="field-error"></span>
+            </fieldset>
+
+            <p class="field-hint">Pola oznaczone * są wymagane.</p>
+            <button type="submit">Wyślij</button>
+            <p id="good-form-success" role="status"></p>
+          </form>
+        </div>
+      </div>
+
+      <details>
+        <summary>Pokaż kod (fragment)</summary>
+<pre><code>&lt;!-- ✗ Źle --&gt;
+&lt;input type="text" placeholder="E-mail"&gt;
+&lt;div class="fake-btn" onclick="…"&gt;Wyślij&lt;/div&gt;
+
+&lt;!-- ✓ Dobrze --&gt;
+&lt;label for="g-email"&gt;E-mail *&lt;/label&gt;
+&lt;span id="g-email-hint"&gt;Np. jan.kowalski@example.com&lt;/span&gt;
+&lt;input id="g-email" type="email" autocomplete="email" required
+       aria-describedby="g-email-hint g-email-error"
+       aria-invalid="true"&gt;
+&lt;span id="g-email-error"&gt;Błąd: Podaj adres e-mail w formacie nazwa@domena.pl.&lt;/span&gt;
+
+&lt;fieldset&gt;
+  &lt;legend&gt;Preferowany kontakt&lt;/legend&gt;
+  &lt;input type="radio" id="c1" name="contact"&gt; &lt;label for="c1"&gt;E-mail&lt;/label&gt;
+  …
+&lt;/fieldset&gt;
+&lt;button type="submit"&gt;Wyślij&lt;/button&gt;</code></pre>
+      </details>
+
+      <div class="how-to-test">
+        <h3>Co jest nie tak i jak to sprawdzić</h3>
+        <ul>
+          <li><strong>Placeholder zamiast etykiety:</strong> znika po wpisaniu tekstu, ma zwykle za niski kontrast, a czytniki ekranu odczytują go niekonsekwentnie.</li>
+          <li><strong>Radio bez etykiet i grupy:</strong> czytnik ekranu ogłosi tylko „przycisk opcji, niezaznaczony” i nie powie, czego dotyczy wybór.</li>
+          <li><strong>„Przycisk” z <code>div</code>:</strong> spróbuj dotrzeć do niego klawiszem <kbd>Tab</kbd>. Nie da się.</li>
+          <li><strong>Błąd tylko kolorem:</strong> kliknij „Wyślij” myszą. Czerwona ramka nic nie mówi osobom niewidomym ani z daltonizmem.</li>
+          <li>W dobrej wersji wyślij pusty formularz. Fokus przejdzie do podsumowania błędów, a każdy link w podsumowaniu przenosi do właściwego pola.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>WCAG 2.2 w praktyce · materiał edukacyjny · źródło: <a href="https://www.w3.org/TR/WCAG22/" lang="en">W3C WCAG 2.2</a></p>
+  </footer>
+  <script src="../assets/js/demos.js"></script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kolory i kontrast – Przykłady – WCAG 2.2 w praktyce</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/demo.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Przejdź do treści</a>
+  <header class="site-header">
+    <div class="inner">
+      <a class="logo" href="../index.html">WCAG 2.2 w praktyce</a>
+      <nav class="site-nav" aria-label="Główna">
+        <ul>
+          <li><a href="../index.html">Start</a></li>
+          <li><a href="../teoria.html">Teoria</a></li>
+          <li><a href="index.html" aria-current="page">Przykłady</a></li>
+          <li><a href="../checklista.html">Checklista</a></li>
+          <li><a href="../narzedzia.html">Narzędzia</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <p><a href="index.html">← Wszystkie przykłady</a></p>
+    <h1>Kolory i kontrast</h1>
+
+    <section class="example" aria-labelledby="ex-tester">
+      <h2 id="ex-tester">Tester kontrastu</h2>
+      <p class="meta">Kryteria 1.4.3 · AA, 1.4.6 · AAA, 1.4.11 · AA</p>
+      <div class="demo">
+        <div class="field">
+          <label for="c-fg">Kolor tekstu</label>
+          <input type="color" id="c-fg" value="#767676" aria-describedby="c-fg-val">
+          <output id="c-fg-val" for="c-fg"></output>
+        </div>
+        <div class="field">
+          <label for="c-bg">Kolor tła</label>
+          <input type="color" id="c-bg" value="#ffffff" aria-describedby="c-bg-val">
+          <output id="c-bg-val" for="c-bg"></output>
+        </div>
+        <div id="c-preview" class="contrast-preview">
+          <p>Zwykły tekst – przykładowe zdanie do oceny czytelności.</p>
+          <p class="big">Duży tekst</p>
+        </div>
+        <p>Współczynnik kontrastu: <strong id="c-ratio" aria-live="polite"></strong></p>
+        <table>
+          <caption class="visually-hidden">Wyniki testu kontrastu</caption>
+          <thead><tr><th scope="col">Wymaganie</th><th scope="col">Próg</th><th scope="col">Wynik</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">AA – zwykły tekst</th><td>4.5:1</td><td id="c-aa-normal"></td></tr>
+            <tr><th scope="row">AA – duży tekst</th><td>3:1</td><td id="c-aa-large"></td></tr>
+            <tr><th scope="row">AAA – zwykły tekst</th><td>7:1</td><td id="c-aaa-normal"></td></tr>
+            <tr><th scope="row">AAA – duży tekst</th><td>4.5:1</td><td id="c-aaa-large"></td></tr>
+            <tr><th scope="row">AA – elementy interfejsu</th><td>3:1</td><td id="c-ui"></td></tr>
+          </tbody>
+        </table>
+        <p class="field-hint">Ciekawostka: <code>#767676</code> na białym tle to najjaśniejszy szary, który spełnia AA (4.54:1).</p>
+      </div>
+    </section>
+
+    <section class="example" aria-labelledby="ex-contrast">
+      <h2 id="ex-contrast">Niski kontrast tekstu</h2>
+      <p class="meta">Kryterium 1.4.3 · AA</p>
+      <div class="demo-pair">
+        <div class="demo demo--bad">
+          <p class="demo-label">✗ Źle: #aaaaaa na białym (2.32:1)</p>
+          <p class="low-contrast">Dostawa gratis przy zamówieniu powyżej 100 zł.</p>
+        </div>
+        <div class="demo demo--good">
+          <p class="demo-label">✓ Dobrze: #595959 na białym (7:1)</p>
+          <p style="color:#595959;background:#fff;padding:0.5rem">Dostawa gratis przy zamówieniu powyżej 100 zł.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="example" aria-labelledby="ex-color">
+      <h2 id="ex-color">Informacja nie tylko kolorem</h2>
+      <p class="meta">Kryterium 1.4.1 · A</p>
+      <div class="demo-pair">
+        <div class="demo demo--bad">
+          <p class="demo-label">✗ Źle: status tylko kolorem</p>
+          <ul>
+            <li><span class="status-dot" style="background:#2e9e44"></span>Serwer A</li>
+            <li><span class="status-dot" style="background:#d93025"></span>Serwer B</li>
+            <li><span class="status-dot" style="background:#2e9e44"></span>Serwer C</li>
+          </ul>
+          <p>Czytaj <span style="color:#0b5cad">regulamin</span> przed zakupem.</p>
+        </div>
+        <div class="demo demo--good">
+          <p class="demo-label">✓ Dobrze: kolor, ikona i tekst</p>
+          <ul>
+            <li><span aria-hidden="true">✅</span> Serwer A – działa</li>
+            <li><span aria-hidden="true">❌</span> Serwer B – <strong>awaria</strong></li>
+            <li><span aria-hidden="true">✅</span> Serwer C – działa</li>
+          </ul>
+          <p>Czytaj <a href="#ex-color">regulamin</a> przed zakupem.</p>
+        </div>
+      </div>
+      <div class="how-to-test"><p>Około 8% mężczyzn ma zaburzenia rozpoznawania barw. Zielona i czerwona kropka mogą dla nich wyglądać tak samo. Sprawdź to w DevTools przeglądarki Chrome: Rendering → <span lang="en">Emulate vision deficiencies</span>. Link wyróżniony tylko kolorem też łamie to kryterium, chyba że ma kontrast co najmniej 3:1 względem otaczającego tekstu i dodatkowy wskaźnik przy fokusie i najechaniu.</p></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>WCAG 2.2 w praktyce · materiał edukacyjny · źródło: <a href="https://www.w3.org/TR/WCAG22/" lang="en">W3C WCAG 2.2</a></p>
+  </footer>
+  <script src="../assets/js/demos.js"></script>
+</body>
+</html>

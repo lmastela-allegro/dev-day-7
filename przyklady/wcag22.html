@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nowości WCAG 2.2 – Przykłady – WCAG 2.2 w praktyce</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/demo.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Przejdź do treści</a>
+  <header class="site-header">
+    <div class="inner">
+      <a class="logo" href="../index.html">WCAG 2.2 w praktyce</a>
+      <nav class="site-nav" aria-label="Główna">
+        <ul>
+          <li><a href="../index.html">Start</a></li>
+          <li><a href="../teoria.html">Teoria</a></li>
+          <li><a href="index.html" aria-current="page">Przykłady</a></li>
+          <li><a href="../checklista.html">Checklista</a></li>
+          <li><a href="../narzedzia.html">Narzędzia</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <p><a href="index.html">← Wszystkie przykłady</a></p>
+    <h1>Nowości WCAG 2.2</h1>
+    <p class="lead">Kryteria dodane w wersji 2.2 skupiają się na osobach z ograniczeniami ruchowymi i poznawczymi oraz na użytkownikach urządzeń dotykowych.</p>
+
+    <section class="example" aria-labelledby="ex-target">
+      <h2 id="ex-target">2.5.8 Rozmiar celu (minimum) <span class="badge">AA</span></h2>
+      <p>Cel dotyku musi mieć co najmniej <strong>24×24 px CSS</strong> albo odstęp, w którym zmieści się okrąg o średnicy 24 px. Dla AAA (2.5.5) wymagane jest 44×44 px.</p>
+      <div class="demo-pair">
+        <div class="demo demo--bad">
+          <p class="demo-label">✗ Źle: małe, stłoczone przyciski</p>
+          <p>Strona:
+            <button class="tiny-target" type="button">1</button><button class="tiny-target" type="button">2</button><button class="tiny-target" type="button">3</button><button class="tiny-target" type="button">4</button>
+          </p>
+        </div>
+        <div class="demo demo--good">
+          <p class="demo-label">✓ Dobrze: 44×44 px z odstępami</p>
+          <nav aria-label="Paginacja (przykład)">
+            <p>
+              <button type="button" aria-current="page">1</button>
+              <button type="button">2</button>
+              <button type="button">3</button>
+              <button type="button">4</button>
+            </p>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <section class="example" aria-labelledby="ex-drag">
+      <h2 id="ex-drag">2.5.7 Ruchy przeciągania <span class="badge">AA</span></h2>
+      <p>Każda funkcja wykonywana przeciąganiem musi być dostępna też pojedynczym wskazaniem (kliknięciem lub dotknięciem), bez przeciągania.</p>
+      <div class="demo-pair">
+        <div class="demo demo--bad">
+          <p class="demo-label">✗ Źle: tylko przeciąganie myszą</p>
+          <ul class="sortable">
+            <li draggable="true">Mleko</li>
+            <li draggable="true">Chleb</li>
+            <li draggable="true">Jabłka</li>
+          </ul>
+        </div>
+        <div class="demo demo--good">
+          <p class="demo-label">✓ Dobrze: przeciąganie oraz przyciski</p>
+          <ul class="sortable" id="good-sort" aria-label="Lista zakupów">
+            <li draggable="true"><span class="item-name">Mleko</span>
+              <span><button type="button" class="secondary" data-move="up" aria-label="Przesuń Mleko wyżej">↑</button>
+              <button type="button" class="secondary" data-move="down" aria-label="Przesuń Mleko niżej">↓</button></span></li>
+            <li draggable="true"><span class="item-name">Chleb</span>
+              <span><button type="button" class="secondary" data-move="up" aria-label="Przesuń Chleb wyżej">↑</button>
+              <button type="button" class="secondary" data-move="down" aria-label="Przesuń Chleb niżej">↓</button></span></li>
+            <li draggable="true"><span class="item-name">Jabłka</span>
+              <span><button type="button" class="secondary" data-move="up" aria-label="Przesuń Jabłka wyżej">↑</button>
+              <button type="button" class="secondary" data-move="down" aria-label="Przesuń Jabłka niżej">↓</button></span></li>
+          </ul>
+          <p id="good-sort-status" role="status"></p>
+        </div>
+      </div>
+      <div class="how-to-test"><p>Osoby z drżeniem rąk, korzystające z myszy nagłownej, sterowania głosem lub przełączników nie wykonają precyzyjnego przeciągnięcia. Przyciski w dobrej wersji działają też z klawiatury (2.1.1), a zmiana pozycji jest ogłaszana przez <code>role="status"</code>.</p></div>
+    </section>
+
+    <section class="example" aria-labelledby="ex-obscured">
+      <h2 id="ex-obscured">2.4.11 Fokus niezasłonięty <span class="badge">AA</span></h2>
+      <p>Element z fokusem nie może być całkowicie zakryty przez treść autora, np. przyklejony pasek albo baner cookies.</p>
+      <div class="demo-pair">
+        <div class="demo demo--bad">
+          <p class="demo-label">✗ Źle</p>
+          <div class="scroll-box" role="region" aria-label="Przewijana lista (zły przykład)" tabindex="0">
+            <ul>
+              <li><a href="#ex-obscured">Link 1</a></li><li><a href="#ex-obscured">Link 2</a></li>
+              <li><a href="#ex-obscured">Link 3</a></li><li><a href="#ex-obscured">Link 4</a></li>
+              <li><a href="#ex-obscured">Link 5</a></li><li><a href="#ex-obscured">Link 6</a></li>
+              <li><a href="#ex-obscured">Link 7</a></li><li><a href="#ex-obscured">Link 8</a></li>
+              <li><a href="#ex-obscured">Link 9</a></li><li><a href="#ex-obscured">Link 10</a></li>
+            </ul>
+            <div class="sticky-bar">Akceptujesz pliki cookie</div>
+          </div>
+        </div>
+        <div class="demo demo--good">
+          <p class="demo-label">✓ Dobrze: <code>scroll-padding-bottom</code></p>
+          <div class="scroll-box scroll-box--good" role="region" aria-label="Przewijana lista (dobry przykład)" tabindex="0">
+            <ul>
+              <li><a href="#ex-obscured">Link 1</a></li><li><a href="#ex-obscured">Link 2</a></li>
+              <li><a href="#ex-obscured">Link 3</a></li><li><a href="#ex-obscured">Link 4</a></li>
+              <li><a href="#ex-obscured">Link 5</a></li><li><a href="#ex-obscured">Link 6</a></li>
+              <li><a href="#ex-obscured">Link 7</a></li><li><a href="#ex-obscured">Link 8</a></li>
+              <li><a href="#ex-obscured">Link 9</a></li><li><a href="#ex-obscured">Link 10</a></li>
+            </ul>
+            <div class="sticky-bar">Akceptujesz pliki cookie</div>
+          </div>
+        </div>
+      </div>
+      <div class="how-to-test"><p>Przechodź <kbd>Tab</kbd> przez linki w lewym polu. Kolejne linki chowają się pod paskiem. W prawym <code>scroll-padding-bottom</code> rezerwuje miejsce na pasek, więc link z fokusem zawsze pozostaje widoczny.</p></div>
+    </section>
+
+    <section class="example" aria-labelledby="ex-redundant">
+      <h2 id="ex-redundant">3.3.7 Zbędne wprowadzanie <span class="badge">A</span></h2>
+      <p>Informacje podane wcześniej w tym samym procesie muszą być uzupełniane automatycznie albo dostępne do wybrania.</p>
+      <div class="demo demo--good">
+        <p class="demo-label">✓ Dobrze: krok 2 zamówienia</p>
+        <p>Adres dostawy (z kroku 1): <strong>ul. Przykładowa 1, 00-001 Warszawa</strong></p>
+        <p><input type="checkbox" id="same-address" checked> <label for="same-address">Adres rozliczeniowy taki sam jak adres dostawy</label></p>
+        <div id="billing-fields" hidden>
+          <div class="field"><label for="bill-street">Ulica i numer</label><input id="bill-street" autocomplete="billing street-address"></div>
+          <div class="field"><label for="bill-city">Miasto</label><input id="bill-city" autocomplete="billing address-level2"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="example" aria-labelledby="ex-auth">
+      <h2 id="ex-auth">3.3.8 Dostępne uwierzytelnianie <span class="badge">AA</span></h2>
+      <p>Logowanie nie może wymagać testu poznawczego, np. zapamiętania, przepisania lub przeliczenia, bez alternatywy. Pozwól wklejać hasła i korzystać z menedżerów haseł.</p>
+      <div class="demo-pair">
+        <div class="demo demo--bad">
+          <p class="demo-label">✗ Źle</p>
+          <div class="field"><label for="bad-login">Login</label><input id="bad-login" autocomplete="off"></div>
+          <div class="field"><label for="bad-pass">Hasło (wklejanie zablokowane)</label><input id="bad-pass" type="password" autocomplete="off"></div>
+          <p id="bad-pass-msg" class="field-error" role="alert"></p>
+          <div class="field"><label for="bad-captcha">Przepisz kod z obrazka: <span style="font-family:serif;font-style:italic;letter-spacing:4px;text-decoration:line-through">x7Kq2</span></label><input id="bad-captcha"></div>
+        </div>
+        <div class="demo demo--good">
+          <p class="demo-label">✓ Dobrze</p>
+          <div class="field"><label for="good-login">E-mail</label><input id="good-login" type="email" autocomplete="username"></div>
+          <div class="field"><label for="good-pass">Hasło</label>
+            <input id="good-pass" type="password" autocomplete="current-password">
+          </div>
+          <p><button type="button" class="secondary" id="show-pass" aria-pressed="false" aria-controls="good-pass">Pokaż hasło</button></p>
+          <p><button type="button">Zaloguj się</button> <button type="button" class="secondary">Zaloguj kluczem dostępu (passkey)</button></p>
+        </div>
+      </div>
+<pre><code>&lt;input type="email" autocomplete="username"&gt;
+&lt;input type="password" autocomplete="current-password"&gt;  &lt;!-- bez onpaste="return false" --&gt;</code></pre>
+    </section>
+
+    <section class="example" aria-labelledby="ex-help">
+      <h2 id="ex-help">3.2.6 Spójna pomoc <span class="badge">A</span></h2>
+      <p>Jeśli serwis udostępnia pomoc, np. telefon, e-mail, czat albo FAQ, musi ona być w tym samym miejscu względem innych elementów na każdej stronie. W tym serwisie rolę pomocy pełni stopka, która na każdej podstronie jest identyczna i zawiera link do źródła standardu.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>WCAG 2.2 w praktyce · materiał edukacyjny · źródło: <a href="https://www.w3.org/TR/WCAG22/" lang="en">W3C WCAG 2.2</a></p>
+  </footer>
+  <script src="../assets/js/demos.js"></script>
+</body>
+</html>

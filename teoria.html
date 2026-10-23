@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Teoria – WCAG 2.2 w praktyce</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Przejdź do treści</a>
+  <header class="site-header">
+    <div class="inner">
+      <a class="logo" href="index.html">WCAG 2.2 w praktyce</a>
+      <nav class="site-nav" aria-label="Główna">
+        <ul>
+          <li><a href="index.html">Start</a></li>
+          <li><a href="teoria.html" aria-current="page">Teoria</a></li>
+          <li><a href="przyklady/index.html">Przykłady</a></li>
+          <li><a href="checklista.html">Checklista</a></li>
+          <li><a href="narzedzia.html">Narzędzia</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <h1>Teoria: kluczowe koncepty dostępności</h1>
+    <p class="lead">Koncepty uporządkowano od najistotniejszych do rzadziej występujących. O kolejności decydują częstość błędów w audytach (np. raport WebAIM Million) i to, jak bardzo dany problem utrudnia korzystanie ze strony.</p>
+
+    <nav class="toc" aria-labelledby="toc-title">
+      <h2 id="toc-title">Spis treści</h2>
+      <ol>
+        <li><a href="#alt">Tekst alternatywny</a></li>
+        <li><a href="#semantyka">Semantyczny HTML i landmarki</a></li>
+        <li><a href="#kontrast">Kontrast kolorów</a></li>
+        <li><a href="#klawiatura">Obsługa z klawiatury</a></li>
+        <li><a href="#fokus">Widoczny i niezasłonięty fokus</a></li>
+        <li><a href="#formularze">Etykiety i błędy formularzy</a></li>
+        <li><a href="#naglowki">Nagłówki i tytuły stron</a></li>
+        <li><a href="#linki">Cel linków i pomijanie bloków</a></li>
+        <li><a href="#jezyk">Język strony</a></li>
+        <li><a href="#aria">ARIA: nazwa, rola, wartość, komunikaty</a></li>
+        <li><a href="#skalowanie">Skalowanie i reflow</a></li>
+        <li><a href="#multimedia">Multimedia</a></li>
+        <li><a href="#ruch">Ruch, animacje i limity czasu</a></li>
+        <li><a href="#nowosci">Nowości w WCAG 2.2</a></li>
+      </ol>
+    </nav>
+
+    <section class="concept" id="alt" aria-labelledby="alt-h">
+      <h2 id="alt-h">1. Tekst alternatywny</h2>
+      <p class="meta">Kryterium 1.1.1 Treść nietekstowa · poziom A · zasada: postrzegalność</p>
+      <p>Każdy obraz niosący informację musi mieć tekstowy odpowiednik w atrybucie <code>alt</code>. Czytnik ekranu odczyta go zamiast obrazu. Obrazy czysto dekoracyjne dostają pusty <code>alt=""</code>, dzięki czemu technologie asystujące je pomijają.</p>
+      <ul>
+        <li>Opisz <strong>cel i treść</strong>, a nie wygląd. Unikaj początków typu „obraz przedstawiający…”.</li>
+        <li>Obraz będący linkiem lub przyciskiem opisuje <strong>akcję</strong>, np. <code>alt="Strona główna"</code>.</li>
+        <li>Złożone grafiki, takie jak wykresy czy diagramy, wymagają dłuższego opisu obok obrazu.</li>
+        <li>Ikony SVG: <code>role="img"</code> z <code>aria-label</code> albo <code>aria-hidden="true"</code>, jeśli są dekoracyjne.</li>
+      </ul>
+      <p><a href="przyklady/media.html">Zobacz przykłady: media i obrazy</a></p>
+    </section>
+
+    <section class="concept" id="semantyka" aria-labelledby="sem-h">
+      <h2 id="sem-h">2. Semantyczny HTML i landmarki</h2>
+      <p class="meta">Kryterium 1.3.1 Informacje i relacje · poziom A</p>
+      <p>Struktura widoczna wizualnie musi być też zapisana w kodzie. Używaj elementów zgodnie z przeznaczeniem: <code>&lt;button&gt;</code> dla akcji, <code>&lt;a&gt;</code> dla nawigacji, list, tabel z <code>&lt;th&gt;</code>, nagłówków <code>&lt;h1&gt;–&lt;h6&gt;</code>.</p>
+      <p>Landmarki (<code>header</code>, <code>nav</code>, <code>main</code>, <code>aside</code>, <code>footer</code>) pozwalają użytkownikom czytników ekranu przeskakiwać między obszarami strony.</p>
+      <p><strong>Pierwsza zasada ARIA:</strong> jeśli istnieje natywny element HTML o potrzebnym znaczeniu i zachowaniu, użyj go zamiast dodawać ARIA do <code>&lt;div&gt;</code>.</p>
+      <p><a href="przyklady/komponenty.html">Zobacz przykłady: komponenty</a></p>
+    </section>
+
+    <section class="concept" id="kontrast" aria-labelledby="kon-h">
+      <h2 id="kon-h">3. Kontrast kolorów</h2>
+      <p class="meta">Kryteria 1.4.3 Kontrast (minimalny) · AA, 1.4.11 Kontrast elementów nietekstowych · AA, 1.4.1 Użycie koloru · A</p>
+      <table>
+        <caption>Minimalne współczynniki kontrastu</caption>
+        <thead><tr><th scope="col">Element</th><th scope="col">AA</th><th scope="col">AAA</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Zwykły tekst</th><td>4.5:1</td><td>7:1</td></tr>
+          <tr><th scope="row">Duży tekst (≥ 24px lub ≥ 18,66px pogrubiony)</th><td>3:1</td><td>4.5:1</td></tr>
+          <tr><th scope="row">Komponenty interfejsu i grafika (obramowania pól, ikony)</th><td>3:1</td><td>–</td></tr>
+        </tbody>
+      </table>
+      <p>Kolor nie może być <strong>jedynym</strong> nośnikiem informacji. Błąd w formularzu oznacz także tekstem lub ikoną, a link w tekście także podkreśleniem.</p>
+      <p><a href="przyklady/kolory.html">Zobacz przykłady: kolory i tester kontrastu</a></p>
+    </section>
+
+    <section class="concept" id="klawiatura" aria-labelledby="kla-h">
+      <h2 id="kla-h">4. Obsługa z klawiatury</h2>
+      <p class="meta">Kryteria 2.1.1 Klawiatura · A, 2.1.2 Bez pułapki na klawiaturę · A, 2.4.3 Kolejność fokusu · A</p>
+      <p>Każdą funkcję musi dać się wykonać samą klawiaturą: <kbd>Tab</kbd>, <kbd>Shift+Tab</kbd>, <kbd>Enter</kbd>, <kbd>Spacja</kbd>, strzałki, <kbd>Esc</kbd>. Fokus nie może utknąć w żadnym komponencie. Kolejność przechodzenia musi być logiczna i zgodna z kolejnością wizualną.</p>
+      <ul>
+        <li>Unikaj dodatnich wartości <code>tabindex</code>, bo zaburzają naturalną kolejność.</li>
+        <li><code>tabindex="0"</code> dodaje element do kolejności, a <code>tabindex="-1"</code> pozwala ustawić fokus tylko programowo.</li>
+        <li>Własne komponenty muszą obsługiwać te same klawisze co ich natywne odpowiedniki.</li>
+      </ul>
+      <p><a href="przyklady/klawiatura.html">Zobacz przykłady: nawigacja i klawiatura</a></p>
+    </section>
+
+    <section class="concept" id="fokus" aria-labelledby="fok-h">
+      <h2 id="fok-h">5. Widoczny i niezasłonięty fokus</h2>
+      <p class="meta">Kryteria 2.4.7 Widoczny fokus · AA, 2.4.11 Fokus niezasłonięty (minimum) · AA <span class="badge badge--new">nowe w 2.2</span>, 2.4.13 Wygląd fokusu · AAA <span class="badge badge--new">nowe w 2.2</span></p>
+      <p>Użytkownik klawiatury musi zawsze widzieć, gdzie jest fokus. Nigdy nie usuwaj <code>outline</code> bez zastąpienia go czymś równie wyraźnym. Używaj <code>:focus-visible</code>.</p>
+      <p>WCAG 2.2 dodaje wymóg, by element z fokusem nie był <strong>całkowicie zasłonięty</strong> przez treść autora, np. przyklejony nagłówek, baner cookies albo czat. Pomaga w tym CSS <code>scroll-padding</code>.</p>
+      <p><a href="przyklady/klawiatura.html#fokus-widoczny">Zobacz przykłady fokusu</a></p>
+    </section>
+
+    <section class="concept" id="formularze" aria-labelledby="for-h">
+      <h2 id="for-h">6. Etykiety i błędy formularzy</h2>
+      <p class="meta">Kryteria 3.3.1 Identyfikacja błędu · A, 3.3.2 Etykiety lub instrukcje · A, 3.3.3 Sugestie korekty błędów · AA, 1.3.5 Określenie celu danych wejściowych · AA, 2.5.3 Etykieta w nazwie · A</p>
+      <ul>
+        <li>Każde pole ma widoczną etykietę <code>&lt;label for&gt;</code>. Placeholder <strong>nie</strong> zastępuje etykiety.</li>
+        <li>Powiązane pola, np. grupę przycisków radio, grupuj w <code>&lt;fieldset&gt;</code> z <code>&lt;legend&gt;</code>.</li>
+        <li>Błędy opisuj tekstem, wskaż pole (<code>aria-invalid</code>, <code>aria-describedby</code>) i podpowiedz, jak je poprawić.</li>
+        <li>Pola z danymi osobowymi mają atrybut <code>autocomplete</code>, np. <code>email</code>, <code>given-name</code>.</li>
+      </ul>
+      <p><a href="przyklady/formularze.html">Zobacz przykłady: formularze</a></p>
+    </section>
+
+    <section class="concept" id="naglowki" aria-labelledby="nag-h">
+      <h2 id="nag-h">7. Nagłówki i tytuły stron</h2>
+      <p class="meta">Kryteria 2.4.2 Tytuł strony · A, 2.4.6 Nagłówki i etykiety · AA, 1.3.1 · A</p>
+      <p>Każda strona ma unikalny, opisowy <code>&lt;title&gt;</code>, np. „Koszyk – Sklep XYZ”. Nagłówki tworzą spis treści strony. Użytkownicy czytników ekranu często nawigują właśnie po nich. Stosuj jeden <code>&lt;h1&gt;</code> i nie przeskakuj poziomów tylko dla efektu wizualnego.</p>
+    </section>
+
+    <section class="concept" id="linki" aria-labelledby="lin-h">
+      <h2 id="lin-h">8. Cel linków i pomijanie bloków</h2>
+      <p class="meta">Kryteria 2.4.4 Cel linku (w kontekście) · A, 2.4.1 Możliwość pominięcia bloków · A</p>
+      <p>Tekst linku powinien mówić, dokąd prowadzi. „Kliknij tutaj” albo „Więcej” wyrwane z kontekstu nic nie znaczą. Na początku strony umieść link <strong>„Przejdź do treści”</strong>, który pozwala ominąć powtarzalną nawigację. Ten serwis ma taki link: naciśnij <kbd>Tab</kbd> po załadowaniu strony.</p>
+    </section>
+
+    <section class="concept" id="jezyk" aria-labelledby="jez-h">
+      <h2 id="jez-h">9. Język strony</h2>
+      <p class="meta">Kryteria 3.1.1 Język strony · A, 3.1.2 Język części · AA</p>
+      <p>Atrybut <code>&lt;html lang="pl"&gt;</code> mówi czytnikowi ekranu, jakiej syntezy mowy użyć. Fragmenty w innym języku oznacz osobno, np. <code>&lt;span lang="en"&gt;</code>. Bez tego polski czytnik przeczyta angielskie słowa z polską wymową.</p>
+    </section>
+
+    <section class="concept" id="aria" aria-labelledby="aria-h">
+      <h2 id="aria-h">10. ARIA: nazwa, rola, wartość, komunikaty</h2>
+      <p class="meta">Kryteria 4.1.2 Nazwa, rola, wartość · A, 4.1.3 Komunikaty o stanie · AA</p>
+      <p>Każdy element interaktywny musi mieć dostępną <strong>nazwę</strong>, <strong>rolę</strong> i aktualny <strong>stan</strong>. Elementy natywne mają je automatycznie. Własne komponenty potrzebują ARIA:</p>
+      <ul>
+        <li><code>aria-label</code> / <code>aria-labelledby</code> – nazwa (np. przycisk z samą ikoną),</li>
+        <li><code>aria-expanded</code>, <code>aria-pressed</code>, <code>aria-selected</code>, <code>aria-checked</code> – stany,</li>
+        <li><code>aria-controls</code>, <code>aria-describedby</code> – relacje,</li>
+        <li><code>aria-live="polite"</code> / <code>role="status"</code> / <code>role="alert"</code> – komunikaty pojawiające się bez przeładowania strony.</li>
+      </ul>
+      <p>„Brak ARIA jest lepszy niż zła ARIA.” Strony z ARIA mają średnio <strong>więcej</strong> błędów dostępności niż strony bez niej (WebAIM Million).</p>
+      <p><a href="przyklady/komponenty.html">Zobacz przykłady: komponenty interaktywne</a></p>
+    </section>
+
+    <section class="concept" id="skalowanie" aria-labelledby="ska-h">
+      <h2 id="ska-h">11. Skalowanie i reflow</h2>
+      <p class="meta">Kryteria 1.4.4 Zmiana rozmiaru tekstu · AA, 1.4.10 Dopasowanie do ekranu (reflow) · AA, 1.4.12 Odstępy w tekście · AA, 1.3.4 Orientacja · AA</p>
+      <p>Strona musi działać przy powiększeniu do 200% (tekst) i 400% (cała strona, szerokość 320 px) bez przewijania w poziomie. Używaj jednostek względnych (<code>rem</code>, <code>%</code>), elastycznych układów i nigdy nie blokuj zoomu (<code>user-scalable=no</code>).</p>
+    </section>
+
+    <section class="concept" id="multimedia" aria-labelledby="mul-h">
+      <h2 id="mul-h">12. Multimedia</h2>
+      <p class="meta">Kryteria 1.2.1–1.2.5 · A/AA, 1.4.2 Kontrola odtwarzania dźwięku · A</p>
+      <p>Nagrania wideo wymagają napisów (<code>&lt;track kind="captions"&gt;</code>) i audiodeskrypcji lub transkrypcji. Nagrania audio wymagają transkrypcji. Dźwięk odtwarzany automatycznie dłużej niż 3 sekundy musi dać się zatrzymać.</p>
+      <p><a href="przyklady/media.html#wideo">Zobacz przykład wideo</a></p>
+    </section>
+
+    <section class="concept" id="ruch" aria-labelledby="ruch-h">
+      <h2 id="ruch-h">13. Ruch, animacje i limity czasu</h2>
+      <p class="meta">Kryteria 2.2.1 Dostosowanie czasu · A, 2.2.2 Pauza, zatrzymanie, ukrycie · A, 2.3.1 Trzy błyski · A, 2.3.3 Animacje z interakcji · AAA</p>
+      <p>Treść poruszająca się automatycznie dłużej niż 5 sekund (karuzele, animacje) musi mieć przycisk pauzy. Nic nie może migać częściej niż 3 razy na sekundę. Szanuj ustawienie systemowe <code>prefers-reduced-motion</code>. Limity czasu muszą dać się wyłączyć lub wydłużyć.</p>
+      <p><a href="przyklady/media.html#animacja">Zobacz przykład animacji</a></p>
+    </section>
+
+    <section class="concept" id="nowosci" aria-labelledby="now-h">
+      <h2 id="now-h">14. Nowości w WCAG 2.2</h2>
+      <p class="meta">Kryteria dodane w wersji 2.2 (wybrane)</p>
+      <table>
+        <caption class="visually-hidden">Nowe kryteria WCAG 2.2</caption>
+        <thead><tr><th scope="col">Kryterium</th><th scope="col">Poziom</th><th scope="col">W skrócie</th></tr></thead>
+        <tbody>
+          <tr><td>2.4.11 Fokus niezasłonięty (minimum)</td><td>AA</td><td>Element z fokusem nie może być całkowicie zakryty.</td></tr>
+          <tr><td>2.5.7 Ruchy przeciągania</td><td>AA</td><td>Każde przeciąganie musi mieć alternatywę jednym kliknięciem.</td></tr>
+          <tr><td>2.5.8 Rozmiar celu (minimum)</td><td>AA</td><td>Cele dotyku mają co najmniej 24×24 px CSS lub odpowiedni odstęp.</td></tr>
+          <tr><td>3.2.6 Spójna pomoc</td><td>A</td><td>Mechanizmy pomocy (kontakt, czat) w tym samym miejscu na każdej stronie.</td></tr>
+          <tr><td>3.3.7 Zbędne wprowadzanie</td><td>A</td><td>Nie każ wpisywać tych samych danych drugi raz w jednym procesie.</td></tr>
+          <tr><td>3.3.8 Dostępne uwierzytelnianie (minimum)</td><td>AA</td><td>Logowanie bez testów poznawczych: wklejanie haseł, menedżery haseł, brak przepisywania kodów z obrazka.</td></tr>
+        </tbody>
+      </table>
+      <p><a href="przyklady/wcag22.html">Zobacz przykłady: nowości WCAG 2.2</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>WCAG 2.2 w praktyce · materiał edukacyjny · źródło: <a href="https://www.w3.org/TR/WCAG22/" lang="en">W3C WCAG 2.2</a></p>
+  </footer>
+</body>
+</html>

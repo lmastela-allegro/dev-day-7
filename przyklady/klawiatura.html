@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nawigacja i klawiatura – Przykłady – WCAG 2.2 w praktyce</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/demo.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Przejdź do treści</a>
+  <header class="site-header">
+    <div class="inner">
+      <a class="logo" href="../index.html">WCAG 2.2 w praktyce</a>
+      <nav class="site-nav" aria-label="Główna">
+        <ul>
+          <li><a href="../index.html">Start</a></li>
+          <li><a href="../teoria.html">Teoria</a></li>
+          <li><a href="index.html" aria-current="page">Przykłady</a></li>
+          <li><a href="../checklista.html">Checklista</a></li>
+          <li><a href="../narzedzia.html">Narzędzia</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <p><a href="index.html">← Wszystkie przykłady</a></p>
+    <h1>Nawigacja i klawiatura</h1>
+    <p class="lead">Odłóż mysz. Wszystkie przykłady na tej stronie przetestuj klawiszami <kbd>Tab</kbd>, <kbd>Shift+Tab</kbd> i <kbd>Enter</kbd>.</p>
+
+    <section class="example" aria-labelledby="ex-skip">
+      <h2 id="ex-skip">Link „Przejdź do treści”</h2>
+      <p class="meta">Kryterium 2.4.1 · A</p>
+      <p>Przeładuj tę stronę i naciśnij <kbd>Tab</kbd>. Pierwszym elementem jest ukryty link, który pojawia się po otrzymaniu fokusu. Pozwala ominąć menu i przejść od razu do <code>&lt;main&gt;</code>.</p>
+<pre><code>&lt;a class="skip-link" href="#main"&gt;Przejdź do treści&lt;/a&gt;
+…
+&lt;main id="main" tabindex="-1"&gt;
+
+.skip-link { position: absolute; top: -10rem; }
+.skip-link:focus { top: 1rem; }</code></pre>
+    </section>
+
+    <section class="example" aria-labelledby="ex-menu">
+      <h2 id="ex-menu">Menu nawigacyjne</h2>
+      <p class="meta">Kryteria 2.1.1 · A, 4.1.2 · A, 1.3.1 · A</p>
+      <div class="demo-pair">
+        <div class="demo demo--bad">
+          <p class="skip-demo"><a href="#good-menu">Pomiń zły przykład</a></p>
+          <p class="demo-label">✗ Źle</p>
+          <div class="demo-nav">
+            <span class="fake-btn" onclick="this.parentNode.nextElementSibling.textContent='Przejście do: '+this.textContent">Produkty</span>
+            <span class="fake-btn" onclick="this.parentNode.nextElementSibling.textContent='Przejście do: '+this.textContent">Cennik</span>
+            <span class="fake-btn" onclick="this.parentNode.nextElementSibling.textContent='Przejście do: '+this.textContent">Kontakt</span>
+          </div>
+          <p></p>
+        </div>
+        <div class="demo demo--good">
+          <p class="demo-label">✓ Dobrze</p>
+          <nav class="demo-nav" id="good-menu" aria-label="Przykładowe menu">
+            <ul>
+              <li><a href="#ex-menu" aria-current="page">Produkty</a></li>
+              <li><a href="#ex-menu">Cennik</a></li>
+              <li><a href="#ex-menu">Kontakt</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+<pre><code>&lt;!-- ✗ --&gt; &lt;span onclick="go('/cennik')"&gt;Cennik&lt;/span&gt;
+&lt;!-- ✓ --&gt; &lt;nav aria-label="Główna"&gt;&lt;ul&gt;&lt;li&gt;&lt;a href="/cennik"&gt;Cennik&lt;/a&gt;&lt;/li&gt;…&lt;/ul&gt;&lt;/nav&gt;</code></pre>
+      <div class="how-to-test">
+        <p>Elementy <code>&lt;span&gt;</code> z <code>onclick</code> są pomijane przez <kbd>Tab</kbd>. Czytnik ekranu nie rozpozna ich jako linków ani nie ogłosi obszaru nawigacji. Linki w <code>&lt;nav&gt;</code> działają od razu, a <code>aria-current</code> informuje, która strona jest aktywna.</p>
+      </div>
+    </section>
+
+    <section class="example" aria-labelledby="fokus-widoczny">
+      <h2 id="fokus-widoczny">Widoczny fokus</h2>
+      <p class="meta">Kryterium 2.4.7 · AA</p>
+      <div class="demo-pair">
+        <div class="demo demo--bad">
+          <p class="demo-label">✗ Źle: <code>outline: none</code></p>
+          <p>
+            <button class="no-outline">Zapisz</button>
+            <button class="no-outline">Anuluj</button>
+            <a class="no-outline" href="#fokus-widoczny">Pomoc</a>
+          </p>
+        </div>
+        <div class="demo demo--good">
+          <p class="demo-label">✓ Dobrze: wyraźny <code>:focus-visible</code></p>
+          <p>
+            <button>Zapisz</button>
+            <button>Anuluj</button>
+            <a href="#fokus-widoczny">Pomoc</a>
+          </p>
+        </div>
+      </div>
+<pre><code>/* ✗ */ button:focus { outline: none; }
+/* ✓ */ :focus-visible { outline: 3px solid #b3006b; outline-offset: 3px; }</code></pre>
+      <div class="how-to-test"><p>Przejdź <kbd>Tab</kbd> przez oba zestawy. W lewym nie wiesz, gdzie jesteś. <code>:focus-visible</code> pokazuje obramowanie przy nawigacji klawiaturą, a przy kliknięciu myszą zwykle go nie pokazuje.</p></div>
+    </section>
+
+    <section class="example" aria-labelledby="ex-order">
+      <h2 id="ex-order">Kolejność fokusu</h2>
+      <p class="meta">Kryterium 2.4.3 · A</p>
+      <div class="demo-pair">
+        <div class="demo demo--bad">
+          <p class="demo-label">✗ Źle: dodatni <code>tabindex</code></p>
+          <div class="field"><label for="o1">Imię</label><input id="o1" tabindex="3"></div>
+          <div class="field"><label for="o2">Nazwisko</label><input id="o2" tabindex="1"></div>
+          <div class="field"><label for="o3">Miasto</label><input id="o3" tabindex="2"></div>
+        </div>
+        <div class="demo demo--good">
+          <p class="demo-label">✓ Dobrze: kolejność z DOM</p>
+          <div class="field"><label for="o4">Imię</label><input id="o4" autocomplete="given-name"></div>
+          <div class="field"><label for="o5">Nazwisko</label><input id="o5" autocomplete="family-name"></div>
+          <div class="field"><label for="o6">Miasto</label><input id="o6" autocomplete="address-level2"></div>
+        </div>
+      </div>
+      <div class="how-to-test"><p>Dodatni <code>tabindex</code> przenosi elementy na <strong>początek</strong> kolejności całej strony. Po przeładowaniu i kilku naciśnięciach <kbd>Tab</kbd> fokus trafi najpierw do „Nazwiska” po lewej, z pominięciem menu i treści. Zamiast tego ustaw elementy w kodzie w logicznej kolejności.</p></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>WCAG 2.2 w praktyce · materiał edukacyjny · źródło: <a href="https://www.w3.org/TR/WCAG22/" lang="en">W3C WCAG 2.2</a></p>
+  </footer>
+  <script src="../assets/js/demos.js"></script>
+</body>
+</html>

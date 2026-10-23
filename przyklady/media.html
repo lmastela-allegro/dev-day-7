@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Media i obrazy – Przykłady – WCAG 2.2 w praktyce</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/demo.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Przejdź do treści</a>
+  <header class="site-header">
+    <div class="inner">
+      <a class="logo" href="../index.html">WCAG 2.2 w praktyce</a>
+      <nav class="site-nav" aria-label="Główna">
+        <ul>
+          <li><a href="../index.html">Start</a></li>
+          <li><a href="../teoria.html">Teoria</a></li>
+          <li><a href="index.html" aria-current="page">Przykłady</a></li>
+          <li><a href="../checklista.html">Checklista</a></li>
+          <li><a href="../narzedzia.html">Narzędzia</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <p><a href="index.html">← Wszystkie przykłady</a></p>
+    <h1>Media i obrazy</h1>
+
+    <section class="example" aria-labelledby="ex-alt">
+      <h2 id="ex-alt">Obraz informacyjny i dekoracyjny</h2>
+      <p class="meta">Kryterium 1.1.1 · A</p>
+      <div class="demo-pair">
+        <div class="demo demo--bad">
+          <p class="demo-label">✗ Źle</p>
+          <img src="../assets/img/gory.svg" width="400" height="200">
+          <p><a href="../index.html"><img src="../assets/img/gory.svg" alt="IMG_2041.svg" width="120" height="60"></a></p>
+        </div>
+        <div class="demo demo--good">
+          <p class="demo-label">✓ Dobrze</p>
+          <img src="../assets/img/gory.svg" alt="Ośnieżony szczyt nad zielonymi zboczami w słoneczny dzień" width="400" height="200">
+          <p><a href="../index.html"><img src="../assets/img/gory.svg" alt="Strona główna" width="120" height="60"></a></p>
+          <p><img src="../assets/img/gory.svg" alt="" width="60" height="30"> ← obraz dekoracyjny z <code>alt=""</code></p>
+        </div>
+      </div>
+<pre><code>&lt;!-- ✗ brak alt: czytnik odczyta nazwę pliku --&gt;
+&lt;img src="gory.svg"&gt;
+&lt;!-- ✓ informacyjny --&gt;
+&lt;img src="gory.svg" alt="Ośnieżony szczyt nad zielonymi zboczami w słoneczny dzień"&gt;
+&lt;!-- ✓ w linku: opisuje cel --&gt;
+&lt;a href="/"&gt;&lt;img src="logo.svg" alt="Strona główna"&gt;&lt;/a&gt;
+&lt;!-- ✓ dekoracyjny --&gt;
+&lt;img src="ozdobnik.svg" alt=""&gt;</code></pre>
+    </section>
+
+    <section class="example" aria-labelledby="ex-chart">
+      <h2 id="ex-chart">Wykres</h2>
+      <p class="meta">Kryteria 1.1.1 · A, 1.4.11 · AA</p>
+      <div class="demo demo--good">
+        <p class="demo-label">✓ Dobrze: krótki alt i pełne dane w tabeli</p>
+        <figure>
+          <img src="../assets/img/wykres.svg" alt="Wykres słupkowy: liczba wdrożeń rośnie z 30 w 2022 do 57 w 2025 r. Dane w tabeli poniżej." width="400" height="240">
+          <figcaption>Liczba wdrożeń audytów dostępności w latach 2022–2025</figcaption>
+        </figure>
+        <details>
+          <summary>Dane wykresu w tabeli</summary>
+          <table>
+            <thead><tr><th scope="col">Rok</th><th scope="col">Liczba wdrożeń</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">2022</th><td>30</td></tr>
+              <tr><th scope="row">2023</th><td>40</td></tr>
+              <tr><th scope="row">2024</th><td>50</td></tr>
+              <tr><th scope="row">2025</th><td>57</td></tr>
+            </tbody>
+          </table>
+        </details>
+      </div>
+    </section>
+
+    <section class="example" aria-labelledby="wideo">
+      <h2 id="wideo">Wideo z napisami i transkrypcją</h2>
+      <p class="meta">Kryteria 1.2.2 · A, 1.2.3 · A, 1.2.5 · AA</p>
+      <p>Poprawny odtwarzacz zawiera ścieżkę napisów w formacie WebVTT, natywne kontrolki (bez <code>autoplay</code>) i transkrypcję pod nagraniem:</p>
+<pre><code>&lt;video controls preload="metadata"&gt;
+  &lt;source src="film.mp4" type="video/mp4"&gt;
+  &lt;track kind="captions" src="napisy.vtt" srclang="pl" label="Polski" default&gt;
+  &lt;track kind="descriptions" src="audiodeskrypcja.vtt" srclang="pl" label="Audiodeskrypcja"&gt;
+&lt;/video&gt;</code></pre>
+      <p>Przykładowy plik napisów: <a href="../assets/media/napisy.vtt">napisy.vtt</a>. Napisy dla osób niesłyszących zawierają także opis dźwięków, np. „[muzyka w tle]”.</p>
+      <details>
+        <summary>Przykładowa transkrypcja</summary>
+        <p>[Muzyka w tle] Lektor: „Dostępność to nie dodatek – to jakość.”</p>
+      </details>
+    </section>
+
+    <section class="example" aria-labelledby="animacja">
+      <h2 id="animacja">Animacja</h2>
+      <p class="meta">Kryteria 2.2.2 · A, 2.3.3 · AAA</p>
+      <div class="demo-pair">
+        <div class="demo demo--bad">
+          <p class="demo-label">✗ Źle: kręci się bez końca, bez możliwości zatrzymania</p>
+          <div class="spinner-demo" style="animation-duration:0.6s"></div>
+        </div>
+        <div class="demo demo--good">
+          <p class="demo-label">✓ Dobrze: przycisk pauzy i <code>prefers-reduced-motion</code></p>
+          <div class="spinner-demo" id="good-spinner"></div>
+          <p><button type="button" id="anim-toggle">Zatrzymaj animację</button></p>
+        </div>
+      </div>
+<pre><code>@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}</code></pre>
+      <div class="how-to-test"><p>Włącz w systemie opcję „Ogranicz ruch” (macOS: Ustawienia → Dostępność → Monitor, Windows: Ustawienia → Dostępność → Efekty wizualne). Po przeładowaniu cały serwis przestanie animować, także zły przykład, bo globalny CSS respektuje tę preferencję.</p></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>WCAG 2.2 w praktyce · materiał edukacyjny · źródło: <a href="https://www.w3.org/TR/WCAG22/" lang="en">W3C WCAG 2.2</a></p>
+  </footer>
+  <script src="../assets/js/demos.js"></script>
+</body>
+</html>

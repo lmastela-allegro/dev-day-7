@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Komponenty interaktywne – Przykłady – WCAG 2.2 w praktyce</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/demo.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Przejdź do treści</a>
+  <header class="site-header">
+    <div class="inner">
+      <a class="logo" href="../index.html">WCAG 2.2 w praktyce</a>
+      <nav class="site-nav" aria-label="Główna">
+        <ul>
+          <li><a href="../index.html">Start</a></li>
+          <li><a href="../teoria.html">Teoria</a></li>
+          <li><a href="index.html" aria-current="page">Przykłady</a></li>
+          <li><a href="../checklista.html">Checklista</a></li>
+          <li><a href="../narzedzia.html">Narzędzia</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <p><a href="index.html">← Wszystkie przykłady</a></p>
+    <h1>Komponenty interaktywne</h1>
+    <p class="lead">Najpierw natywny HTML. ARIA dodaj dopiero wtedy, gdy HTML nie wystarcza, i obsłuż przy tym klawiaturę.</p>
+
+    <section class="example" aria-labelledby="ex-btn">
+      <h2 id="ex-btn">Przycisk</h2>
+      <p class="meta">Kryteria 2.1.1 · A, 4.1.2 · A</p>
+      <div class="demo-pair">
+        <div class="demo demo--bad">
+          <p class="demo-label">✗ Źle: <code>&lt;div onclick&gt;</code> i ikona bez nazwy</p>
+          <p><span class="fake-btn" data-demo-click="bad-btn-out">Dodaj</span>
+             <span class="fake-btn" data-demo-click="bad-btn-out">🗑</span></p>
+          <p id="bad-btn-out"></p>
+        </div>
+        <div class="demo demo--good">
+          <p class="demo-label">✓ Dobrze: <code>&lt;button&gt;</code> z nazwą dostępną</p>
+          <p><button type="button" data-demo-click="good-btn-out">Dodaj</button>
+             <button type="button" data-demo-click="good-btn-out" aria-label="Usuń"><span aria-hidden="true">🗑</span></button></p>
+          <p id="good-btn-out" role="status"></p>
+        </div>
+      </div>
+<pre><code>&lt;!-- ✗ --&gt; &lt;div class="btn" onclick="del()"&gt;🗑&lt;/div&gt;
+&lt;!-- ✓ --&gt; &lt;button type="button" aria-label="Usuń"&gt;&lt;span aria-hidden="true"&gt;🗑&lt;/span&gt;&lt;/button&gt;</code></pre>
+      <div class="how-to-test"><p><code>&lt;button&gt;</code> dostaje za darmo fokus, obsługę <kbd>Enter</kbd> i <kbd>Spacji</kbd> oraz rolę „przycisk”. Ikona bez etykiety zostanie odczytana jako „kosz na śmieci” albo w ogóle pominięta.</p></div>
+    </section>
+
+    <section class="example" aria-labelledby="ex-toggle">
+      <h2 id="ex-toggle">Przycisk przełączający</h2>
+      <p class="meta">Kryterium 4.1.2 · A</p>
+      <div class="demo demo--good">
+        <p class="demo-label">✓ Dobrze: <code>aria-pressed</code></p>
+        <button type="button" class="secondary" data-toggle aria-pressed="false">Pogrubienie</button>
+        <button type="button" class="secondary" data-toggle aria-pressed="false">Kursywa</button>
+      </div>
+      <div class="how-to-test"><p>Czytnik ekranu ogłosi „Pogrubienie, przycisk przełączający, niewciśnięty” i poinformuje o zmianie stanu.</p></div>
+    </section>
+
+    <section class="example" aria-labelledby="ex-modal">
+      <h2 id="ex-modal">Okno modalne</h2>
+      <p class="meta">Kryteria 2.1.2 · A, 2.4.3 · A, 4.1.2 · A</p>
+      <div class="demo-pair">
+        <div class="demo demo--bad">
+          <p class="demo-label">✗ Źle: <code>&lt;div&gt;</code> nakładka</p>
+          <button type="button" id="bad-modal-open">Otwórz (źle)</button>
+          <div class="modal-backdrop" id="bad-modal" hidden>
+            <div class="modal">
+              <p><strong>Newsletter</strong></p>
+              <p>Zapisz się, aby otrzymywać nowości.</p>
+              <p><span class="fake-btn">Zapisz</span></p>
+              <button type="button" id="bad-modal-close">Zamknij</button>
+            </div>
+          </div>
+        </div>
+        <div class="demo demo--good">
+          <p class="demo-label">✓ Dobrze: natywny <code>&lt;dialog&gt;</code></p>
+          <button type="button" id="good-modal-open">Otwórz (dobrze)</button>
+          <dialog class="modal" id="good-modal" aria-labelledby="good-modal-title">
+            <h3 id="good-modal-title">Newsletter</h3>
+            <p>Zapisz się, aby otrzymywać nowości.</p>
+            <div class="field">
+              <label for="nl-email">E-mail</label>
+              <input id="nl-email" type="email" autocomplete="email">
+            </div>
+            <button type="button" data-close-dialog>Zapisz</button>
+            <button type="button" class="secondary" data-close-dialog>Zamknij</button>
+          </dialog>
+        </div>
+      </div>
+<pre><code>&lt;dialog id="dlg" aria-labelledby="dlg-title"&gt;
+  &lt;h3 id="dlg-title"&gt;Newsletter&lt;/h3&gt; …
+&lt;/dialog&gt;
+
+openBtn.onclick = () =&gt; dlg.showModal();          // fokus wchodzi do okna, tło jest inert, Esc zamyka
+dlg.addEventListener('close', () =&gt; openBtn.focus()); // powrót fokusu</code></pre>
+      <div class="how-to-test">
+        <p>Otwórz zły modal klawiaturą. Fokus zostaje na przycisku pod spodem, <kbd>Tab</kbd> chodzi po stronie za nakładką, a <kbd>Esc</kbd> nie działa. Aby go zamknąć, przejdź <kbd>Tab</kbd> do przycisku „Zamknij”.</p>
+        <p>W dobrym modalu fokus trafia do okna, tło jest niedostępne, <kbd>Esc</kbd> zamyka okno, a fokus wraca na przycisk otwierający.</p>
+      </div>
+    </section>
+
+    <section class="example" aria-labelledby="ex-tabs">
+      <h2 id="ex-tabs">Zakładki</h2>
+      <p class="meta">Kryteria 2.1.1 · A, 4.1.2 · A · wzorzec <a href="https://www.w3.org/WAI/ARIA/apg/patterns/tabs/" lang="en">ARIA APG Tabs</a></p>
+      <div class="demo demo--good">
+        <p class="demo-label">✓ Dobrze</p>
+        <div role="tablist" aria-label="Szczegóły produktu">
+          <button type="button" role="tab" id="tab-1" aria-selected="true" aria-controls="panel-1">Opis</button>
+          <button type="button" role="tab" id="tab-2" aria-selected="false" aria-controls="panel-2" tabindex="-1">Specyfikacja</button>
+          <button type="button" role="tab" id="tab-3" aria-selected="false" aria-controls="panel-3" tabindex="-1">Opinie</button>
+        </div>
+        <div role="tabpanel" id="panel-1" aria-labelledby="tab-1" tabindex="0"><p>Lekki plecak miejski o pojemności 20 litrów.</p></div>
+        <div role="tabpanel" id="panel-2" aria-labelledby="tab-2" tabindex="0" hidden><p>Materiał: poliester z recyklingu. Waga: 640 g.</p></div>
+        <div role="tabpanel" id="panel-3" aria-labelledby="tab-3" tabindex="0" hidden><p>Średnia ocena 4,7 na 5 (128 opinii).</p></div>
+      </div>
+      <div class="how-to-test"><p><kbd>Tab</kbd> wchodzi do listy zakładek, strzałki <kbd>←</kbd> <kbd>→</kbd> przełączają zakładki, a <kbd>Home</kbd> i <kbd>End</kbd> przenoszą na pierwszą i ostatnią. Kolejny <kbd>Tab</kbd> przenosi do panelu. Tylko aktywna zakładka ma <code>tabindex="0"</code> (tzw. <span lang="en">roving tabindex</span>).</p></div>
+    </section>
+
+    <section class="example" aria-labelledby="ex-acc">
+      <h2 id="ex-acc">Akordeon</h2>
+      <p class="meta">Kryterium 4.1.2 · A</p>
+      <div class="demo demo--good accordion">
+        <p class="demo-label">✓ Dobrze: przycisk w nagłówku i <code>aria-expanded</code></p>
+        <h3><button type="button" aria-expanded="false" aria-controls="acc-1">Jak długo trwa dostawa? <span class="chev" aria-hidden="true">▾</span></button></h3>
+        <div id="acc-1" class="panel" hidden><p>Zwykle 1–2 dni robocze.</p></div>
+        <h3><button type="button" aria-expanded="false" aria-controls="acc-2">Czy mogę zwrócić towar? <span class="chev" aria-hidden="true">▾</span></button></h3>
+        <div id="acc-2" class="panel" hidden><p>Tak, w ciągu 30 dni bez podania przyczyny.</p></div>
+      </div>
+      <div class="how-to-test"><p>Prostsza alternatywa to natywne <code>&lt;details&gt;</code> i <code>&lt;summary&gt;</code>, które nie wymagają żadnego JS.</p></div>
+    </section>
+
+    <section class="example" aria-labelledby="ex-live">
+      <h2 id="ex-live">Komunikaty o stanie</h2>
+      <p class="meta">Kryterium 4.1.3 · AA</p>
+      <div class="demo-pair">
+        <div class="demo demo--bad">
+          <p class="demo-label">✗ Źle: zwykły tekst</p>
+          <button type="button" id="bad-cart">Dodaj do koszyka</button>
+          <p id="bad-cart-msg" class="toast-region"></p>
+        </div>
+        <div class="demo demo--good">
+          <p class="demo-label">✓ Dobrze: <code>role="status"</code></p>
+          <button type="button" id="good-cart">Dodaj do koszyka</button>
+          <p id="good-cart-msg" class="toast-region" role="status"></p>
+        </div>
+      </div>
+      <div class="how-to-test"><p>Z włączonym czytnikiem ekranu kliknij oba przyciski. Tylko po prawej usłyszysz „Dodano do koszyka”. Region <code>role="status"</code> (<code>aria-live="polite"</code>) musi istnieć w DOM <strong>przed</strong> zmianą treści.</p></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>WCAG 2.2 w praktyce · materiał edukacyjny · źródło: <a href="https://www.w3.org/TR/WCAG22/" lang="en">W3C WCAG 2.2</a></p>
+  </footer>
+  <script src="../assets/js/demos.js"></script>
+</body>
+</html>

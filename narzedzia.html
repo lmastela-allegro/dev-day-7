@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Narzędzia – WCAG 2.2 w praktyce</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Przejdź do treści</a>
+  <header class="site-header">
+    <div class="inner">
+      <a class="logo" href="index.html">WCAG 2.2 w praktyce</a>
+      <nav class="site-nav" aria-label="Główna">
+        <ul>
+          <li><a href="index.html">Start</a></li>
+          <li><a href="teoria.html">Teoria</a></li>
+          <li><a href="przyklady/index.html">Przykłady</a></li>
+          <li><a href="checklista.html">Checklista</a></li>
+          <li><a href="narzedzia.html" aria-current="page">Narzędzia</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <h1>Narzędzia do testowania</h1>
+    <p class="lead">Narzędzia automatyczne wykrywają tylko około 30–40% problemów. Pozostałe wymagają testów ręcznych: klawiaturą, czytnikiem ekranu i przy powiększeniu.</p>
+
+    <h2>Testy automatyczne</h2>
+    <ul class="cards">
+      <li class="card"><h3><a href="https://www.deque.com/axe/devtools/" lang="en">axe DevTools</a></h3><p>Rozszerzenie przeglądarki i biblioteka <code>axe-core</code> do testów w CI (Playwright, Cypress, Jest).</p></li>
+      <li class="card"><h3><a href="https://developer.chrome.com/docs/lighthouse/" lang="en">Lighthouse</a></h3><p>Wbudowany w Chrome DevTools. Wylicza wynik dostępności oparty na axe.</p></li>
+      <li class="card"><h3><a href="https://wave.webaim.org/" lang="en">WAVE</a></h3><p>Wizualnie zaznacza błędy i strukturę bezpośrednio na stronie.</p></li>
+      <li class="card"><h3><a href="https://pa11y.org/" lang="en">Pa11y</a></h3><p>Narzędzie wiersza poleceń, np. <code>npx pa11y-ci</code>, wygodne do automatyzacji.</p></li>
+    </ul>
+
+    <h2>Czytniki ekranu</h2>
+    <table>
+      <thead><tr><th scope="col">Czytnik</th><th scope="col">System</th><th scope="col">Uruchomienie</th></tr></thead>
+      <tbody>
+        <tr><th scope="row"><a href="https://www.nvaccess.org/">NVDA</a></th><td>Windows (darmowy)</td><td><kbd>Ctrl+Alt+N</kbd></td></tr>
+        <tr><th scope="row">VoiceOver</th><td>macOS, iOS</td><td><kbd>Cmd+F5</kbd> / trzykrotne kliknięcie przycisku bocznego</td></tr>
+        <tr><th scope="row">TalkBack</th><td>Android</td><td>Ustawienia → Ułatwienia dostępu</td></tr>
+        <tr><th scope="row">JAWS</th><td>Windows (płatny)</td><td>–</td></tr>
+        <tr><th scope="row">Narrator</th><td>Windows</td><td><kbd>Win+Ctrl+Enter</kbd></td></tr>
+      </tbody>
+    </table>
+
+    <h2>Kontrast i kolor</h2>
+    <ul>
+      <li><a href="https://www.tpgi.com/color-contrast-checker/" lang="en">Colour Contrast Analyser (TPGi)</a>: aplikacja z pipetą do pobierania kolorów z ekranu.</li>
+      <li><a href="https://webaim.org/resources/contrastchecker/" lang="en">WebAIM Contrast Checker</a></li>
+      <li>Chrome DevTools: podgląd kontrastu w selektorze kolorów oraz Rendering → <span lang="en">Emulate vision deficiencies</span>.</li>
+      <li><a href="przyklady/kolory.html">Nasz tester kontrastu</a></li>
+    </ul>
+
+    <h2>Testy ręczne – minimum</h2>
+    <ol>
+      <li>Przejdź całą stronę samym <kbd>Tab</kbd> i <kbd>Shift+Tab</kbd>, a następnie wykonaj kluczowe zadanie, np. zakup albo kontakt.</li>
+      <li>Powiększ stronę do 400% lub ustaw szerokość okna na 320 px.</li>
+      <li>Wyłącz CSS i sprawdź, czy kolejność treści ma sens.</li>
+      <li>Przejrzyj nagłówki i landmarki czytnikiem ekranu (NVDA: <kbd>H</kbd> i <kbd>D</kbd>, VoiceOver: Rotor <kbd>VO+U</kbd>).</li>
+      <li>Wypełnij formularz z błędami i sprawdź, czy komunikaty są ogłaszane.</li>
+    </ol>
+
+    <h2>Źródła</h2>
+    <ul>
+      <li><a href="https://www.w3.org/TR/WCAG22/" lang="en">WCAG 2.2 – specyfikacja W3C</a></li>
+      <li><a href="https://www.w3.org/WAI/WCAG22/quickref/" lang="en">How to Meet WCAG (Quick Reference)</a></li>
+      <li><a href="https://www.w3.org/WAI/ARIA/apg/" lang="en">ARIA Authoring Practices Guide</a></li>
+      <li><a href="https://webaim.org/projects/million/" lang="en">WebAIM Million</a></li>
+    </ul>
+  </main>
+
+  <footer class="site-footer">
+    <p>WCAG 2.2 w praktyce · materiał edukacyjny · źródło: <a href="https://www.w3.org/TR/WCAG22/" lang="en">W3C WCAG 2.2</a></p>
+  </footer>
+</body>
+</html>
